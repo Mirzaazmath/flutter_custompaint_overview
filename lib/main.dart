@@ -40,23 +40,17 @@ class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
+    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.fill;
 
     // CREATING THE PATH
-    final triangle=Path();
-    // MOVING THE BRUSH TO TOP CENTER ON CANVAS
-    // NOW THE SIZE.WIDTH/2 BECOME THE INITIAL POINT
-    triangle.moveTo(size.width/2, 0);
-    // ASSIGNING THE CORDINATES TO DRAW THE LINE FROM INITIAL POINT TO THE GIVEN CORDINATES
-
-    triangle.relativeLineTo(size.width/2, size.height*0.8);
-
-    // NOW THE LAST CORDINATES BECOMES ZERO
-    // ASSIGNING THE CORDINATES TO DRAW THE LINE FROM INITIAL POINT TO THE GIVEN CORDINATES
-    triangle.relativeLineTo(-size.width, 0);
-    // CLOSING THE PATH THIS WILL AUTOMATICALLY CREATES THE LINE TO AND CONNECT THE VERY INITIAL POINT OF
-    // CANVAS
-    triangle.close();
+    final shape=Path();
+    shape.moveTo( size.width*0.2, size.height*0.3);
+    shape.relativeLineTo(size.width*0.6,0);
+    shape.relativeLineTo(0, size.height*0.7);
+    shape.relativeLineTo(size.width*0.2, -size.height*0.2);
+    shape.relativeLineTo(-size.width,0 );
+    shape.relativeLineTo(size.width*0.2, size.height*0.2);
+    shape.close();
 
     
     
@@ -64,7 +58,7 @@ class MyCustomPainter extends CustomPainter{
 
 
     //DRAWING THE TRIANGLE IN CANVAS
-    canvas.drawPath(triangle, brush);
+    canvas.drawPath(shape, brush);
 
   }
 
