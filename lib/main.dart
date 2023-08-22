@@ -30,8 +30,10 @@ class HomeScreen extends StatelessWidget {
           color: Colors.white,
           child: CustomPaint(
             painter: MyCustomPainter(),
+
           ),
         ),
+
       ),
     );
   }
@@ -40,24 +42,18 @@ class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.fill;
+    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
 
     // CREATING THE PATH
     final shape=Path();
-    shape.moveTo( size.width*0.2, size.height*0.3);
-    shape.relativeLineTo(size.width*0.6,0);
-    shape.relativeLineTo(0, size.height*0.7);
-    shape.relativeLineTo(size.width*0.2, -size.height*0.2);
-    shape.relativeLineTo(-size.width,0 );
-    shape.relativeLineTo(size.width*0.2, size.height*0.2);
-    shape.close();
 
-    
-    
+     shape.moveTo( size.width*0.2, size.height*0.2);
+     shape.relativeLineTo(size.width*0.6, 0);
+     shape.relativeLineTo(0, size.height*0.7);
+    shape.relativeLineTo(-size.width*0.6, 0);
+     shape.close();
 
 
-
-    //DRAWING THE TRIANGLE IN CANVAS
     canvas.drawPath(shape, brush);
 
   }
