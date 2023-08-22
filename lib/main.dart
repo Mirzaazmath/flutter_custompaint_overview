@@ -43,14 +43,13 @@ class MyCustomPainter extends CustomPainter{
   void paint(Canvas canvas, Size size) {
     // CREATING THE BRUSH
     Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
+    var concentricCircleRadius =100.0;
+    while (concentricCircleRadius>0){
+      canvas.drawCircle(Offset(size.width/2, size.height/2), concentricCircleRadius, brush);
+      concentricCircleRadius -= 10;
+    }
 
-    // DRAWING THE Oval IN CANVAS
-// DRAW OVAL REQUIRED RECT SO WE ARE CREATING RECT FROM CENTER OF OUR CANVAS
-// RECT SYNTAX
-   // final Rect oval =Rect.fromCenter(center:CENTERLOCATION, width: WIDTH, height: HEIGHT);
-    final Rect oval =Rect.fromCenter(center: Offset(size.width/2,size.height/2), width: 200, height: 100);
 
-    canvas.drawOval(oval, brush);
   }
 
   @override

@@ -12,9 +12,9 @@ A few resources to get you started if this is your first Flutter project:
 
 
 
-# Screenshot 1
+# Screenshot 
 
-<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/oval/assets/Screenshot1.png" height="400">
+<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/concentricCircle/assets/Screenshot.png" height="400">
 
 
 
