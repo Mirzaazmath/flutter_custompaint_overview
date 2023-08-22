@@ -42,38 +42,13 @@ class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
+    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.fill;
 
-    // CREATING THE PATH
-    final shape=Path();
+    // DRAWING THE CIRCLE IN CANVAS
+    //SYNTAX
+    //canvas.drawCircle(LOCATION, SIZE, BRUSH);
 
-   shape.moveTo(size.width/2, 0);
-   shape.relativeLineTo(size.width*0.2, size.height*0.3);
-    shape.relativeLineTo(-size.width*0.2, -size.height*0.1);
-    shape.relativeLineTo(size.width*0.3, size.height*0.3);
-    shape.relativeLineTo(-size.width*0.2, -size.height*0.1);
-    shape.relativeLineTo(size.width*0.2, size.height*0.2);
-    shape.relativeLineTo(-size.width*0.3, 0);
-    shape.relativeLineTo(0, size.height*0.2);
-    shape.relativeLineTo(-size.width*0.1, 0);
-    shape.relativeLineTo(0, -size.height*0.2);
-    shape.relativeLineTo(-size.width*0.3, 0);
-    shape.relativeLineTo(size.width*0.2, -size.height*0.2);
-    shape.relativeLineTo(-size.width*0.2, size.height*0.1);
-    shape.relativeLineTo(size.width*0.3, -size.height*0.3);
-    shape.relativeLineTo(-size.width*0.2, size.height*0.1);
-
-
-
-
-
-
-
-     shape.close();
-
-
-    canvas.drawPath(shape, brush);
-
+    canvas.drawCircle(Offset(size.width/2, size.height/2), 100, brush);
   }
 
   @override
