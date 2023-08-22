@@ -42,13 +42,15 @@ class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.fill;
+    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
 
-    // DRAWING THE CIRCLE IN CANVAS
-    //SYNTAX
-    //canvas.drawCircle(LOCATION, SIZE, BRUSH);
+    // DRAWING THE Oval IN CANVAS
+// DRAW OVAL REQUIRED RECT SO WE ARE CREATING RECT FROM CENTER OF OUR CANVAS
+// RECT SYNTAX
+   // final Rect oval =Rect.fromCenter(center:CENTERLOCATION, width: WIDTH, height: HEIGHT);
+    final Rect oval =Rect.fromCenter(center: Offset(size.width/2,size.height/2), width: 200, height: 100);
 
-    canvas.drawCircle(Offset(size.width/2, size.height/2), 100, brush);
+    canvas.drawOval(oval, brush);
   }
 
   @override
