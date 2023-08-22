@@ -6,6 +6,20 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
+# Screenshot1 
+
+
+<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/square/assets/Screenshot1.png" height="400">
+
+
+
+# Screenshot2 
+
+
+<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/square/assets/Screenshot2.png" height="400">
+
+
+
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
