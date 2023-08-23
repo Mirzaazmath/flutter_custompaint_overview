@@ -1,5 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'dart:math';
+
 
 void main(){
   runApp(MyApp());
@@ -43,28 +45,27 @@ class HomeScreen extends StatelessWidget {
 class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
-
-    /*
-    * NOTE : YOU NEED A BOUNDING BOX , A START ANGLE AND A SWEEP ANGLE TO DRAW AN ARC*/
+/*
+* Adds a quadratic bezier segment that curves from the current point to the point at the offset (x2,y2)
+*  from the current point, using the control point at the offset (x1,y1) from the current point.*/
 
 
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
+    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.fill;
 
-     // DEFINING THE CENTER
-     final arcCenter = Offset(size.width/2,size.height/2 );
-     // CREATING THE RECT WITH CENTER AND RADIUS
-    final arcRect = Rect.fromCircle(center: arcCenter, radius: 75);
-    // ASSIGNING THE START ANGLE
-    // degreesToRads IT USE TO CONVERT DEGREE TO RADIAN
-    final startAngle = degreesToRads(0);
-    // ASSIGNING THE SWEEP OR END ANGLE
-    final sweepAngle = degreesToRads(90);
-    // CREATING THE ARC
+    Path qbezier=Path();
+    // MOVE THE STARTING POINT
+    qbezier.moveTo(0, size.height/2);
+    // DEFINING THE PATH FOR QUADRATIC BEZIER CURVE
     // SYNTAX
-  //  canvas.drawArc(RECT OR CIRCLE, startAngle, sweepAngle, false, brush);
+    // DX DY DEFINES THE CONTROL POINT OFFSET
+    // 2DX 2DY DEFINES THE ENDPOINT OFFSET
+    // THE LAST OR SAY OUR FIRST POINT WILL BE OUR CURRENT POINT
+    //qbezier.relativeQuadraticBezierTo(DX, DY, 2DX, 2DY);
 
-    canvas.drawArc(arcRect, startAngle, sweepAngle,true, brush);
+    qbezier.relativeQuadraticBezierTo(size.width/2, -size.height/2, size.width, 0);
+    // DRAWING THE QUADRATIC BEZIER CURVE
+    canvas.drawPath(qbezier, brush);
 
 
   }
@@ -77,8 +78,5 @@ class MyCustomPainter extends CustomPainter{
 
 }
 
-// CONVERTING THE DEGREE TO RADIAN TO FORM AN ANGLE
-double degreesToRads(num deg) {
-  return (deg * pi) / 180.0;
-}
+
 
