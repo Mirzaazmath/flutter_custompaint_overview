@@ -14,13 +14,13 @@ A few resources to get you started if this is your first Flutter project:
 
 # Screenshot 
 
-<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/concentricCircle/assets/Screenshot.png" height="400">
+<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/arc/assets/Screenshot.png" height="400">
 
 
 
 # Screenshot 2
 
-<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/oval/assets/Screenshot2.png" height="400">
+<img src="https://github.com/Mirzaazmath/flutter_custompaint_overview/blob/arc/assets/Screenshot2.png" height="400">
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)

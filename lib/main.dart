@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
 void main(){
   runApp(MyApp());
 }
@@ -41,13 +43,28 @@ class HomeScreen extends StatelessWidget {
 class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
+
+    /*
+    * NOTE : YOU NEED A BOUNDING BOX , A START ANGLE AND A SWEEP ANGLE TO DRAW AN ARC*/
+
+
     // CREATING THE BRUSH
     Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
-    var concentricCircleRadius =100.0;
-    while (concentricCircleRadius>0){
-      canvas.drawCircle(Offset(size.width/2, size.height/2), concentricCircleRadius, brush);
-      concentricCircleRadius -= 10;
-    }
+
+     // DEFINING THE CENTER
+     final arcCenter = Offset(size.width/2,size.height/2 );
+     // CREATING THE RECT WITH CENTER AND RADIUS
+    final arcRect = Rect.fromCircle(center: arcCenter, radius: 75);
+    // ASSIGNING THE START ANGLE
+    // degreesToRads IT USE TO CONVERT DEGREE TO RADIAN
+    final startAngle = degreesToRads(0);
+    // ASSIGNING THE SWEEP OR END ANGLE
+    final sweepAngle = degreesToRads(90);
+    // CREATING THE ARC
+    // SYNTAX
+  //  canvas.drawArc(RECT OR CIRCLE, startAngle, sweepAngle, false, brush);
+
+    canvas.drawArc(arcRect, startAngle, sweepAngle,true, brush);
 
 
   }
@@ -58,5 +75,10 @@ class MyCustomPainter extends CustomPainter{
    return true;
   }
 
+}
+
+// CONVERTING THE DEGREE TO RADIAN TO FORM AN ANGLE
+double degreesToRads(num deg) {
+  return (deg * pi) / 180.0;
 }
 
