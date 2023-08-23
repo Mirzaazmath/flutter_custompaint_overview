@@ -45,27 +45,26 @@ class HomeScreen extends StatelessWidget {
 class MyCustomPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
-/*
-* Adds a quadratic bezier segment that curves from the current point to the point at the offset (x2,y2)
-*  from the current point, using the control point at the offset (x1,y1) from the current point.*/
+/*Adds a cubic bezier segment that curves from the current point to the point at the offset (x3,y3) from the current point, using the control points at the offsets (x1,y1) and (x2,y2) from the current point.*/
 
 
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.fill;
+    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
 
-    Path qbezier=Path();
+    Path cbezier=Path();
     // MOVE THE STARTING POINT
-    qbezier.moveTo(0, size.height/2);
+    cbezier.moveTo(0, size.height/2);
     // DEFINING THE PATH FOR QUADRATIC BEZIER CURVE
     // SYNTAX
-    // DX DY DEFINES THE CONTROL POINT OFFSET
-    // 2DX 2DY DEFINES THE ENDPOINT OFFSET
+    // DX DY DEFINES THE CONTROL POINT1 OFFSET
+    // 2DX 2DY DEFINES THE CONTROL POINT2 OFFSET
+    // 3DX 3DY DEFINES THE ENDPOINT OFFSET
     // THE LAST OR SAY OUR FIRST POINT WILL BE OUR CURRENT POINT
-    //qbezier.relativeQuadraticBezierTo(DX, DY, 2DX, 2DY);
+    //qbezier.relativeCubicTo(DX, DY, 2DX, 2DY,3DX,3DX);
 
-    qbezier.relativeQuadraticBezierTo(size.width/2, -size.height/2, size.width, 0);
+    cbezier.relativeCubicTo(0, -size.height, size.width, size.height, size.width, 0);
     // DRAWING THE QUADRATIC BEZIER CURVE
-    canvas.drawPath(qbezier, brush);
+    canvas.drawPath(cbezier, brush);
 
 
   }
