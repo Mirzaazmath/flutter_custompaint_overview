@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -16,55 +17,119 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this,duration:const  Duration(seconds: 3));
+    _controller.forward();
+    _controller.addListener(() {
+      if(_controller.isCompleted){
+        _controller.reverse();
+      }else if(_controller.isDismissed){
+        _controller.forward();
+      }
+
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Paint Triangle"),
+        title: const Text("Custom Paint"),
+        elevation: 0,
       ),
 
       body: Center(
-        child: Container(
-          height: 300,
-          width: 300,
-          color: Colors.white,
-          child: CustomPaint(
-            painter: MyCustomPainter(),
+        child: AnimatedBuilder(
+          builder: (context,_) {
 
-          ),
+            return Container(
+              height: 300,
+              width: 300,
+              color: Colors.white,
+              child: CustomPaint(
+                painter: MyCustomPainter(_controller.value),
+
+              ),
+            );
+          }, animation: _controller,
         ),
 
       ),
     );
   }
 }
+
 class MyCustomPainter extends CustomPainter{
+   double chargevalue;
+   MyCustomPainter(this.chargevalue);
   @override
   void paint(Canvas canvas, Size size) {
-/*Adds a cubic bezier segment that curves from the current point to the point at the offset (x3,y3) from the current point, using the control points at the offsets (x1,y1) and (x2,y2) from the current point.*/
-
 
     // CREATING THE BRUSH
-    Paint brush=Paint()..strokeWidth=5..color=Colors.blueAccent..style = PaintingStyle.stroke;
+    //CREATING PAINT FOR BORDER
+    Paint borderpaint=Paint()..strokeWidth=4..color=Colors.black..style = PaintingStyle.stroke;
+    //CREATING PAINT FOR NOTCH
+    Paint notchpaint=Paint()..color=Colors.black..style = PaintingStyle.fill;
+    // CREATING THE PAINT FOR CHARGE
+    Paint chargepaint=Paint()..color=Colors.green..style = PaintingStyle.fill;
 
-    Path cbezier=Path();
-    // MOVE THE STARTING POINT
-    cbezier.moveTo(0, size.height/2);
-    // DEFINING THE PATH FOR QUADRATIC BEZIER CURVE
-    // SYNTAX
-    // DX DY DEFINES THE CONTROL POINT1 OFFSET
-    // 2DX 2DY DEFINES THE CONTROL POINT2 OFFSET
-    // 3DX 3DY DEFINES THE ENDPOINT OFFSET
-    // THE LAST OR SAY OUR FIRST POINT WILL BE OUR CURRENT POINT
-    //qbezier.relativeCubicTo(DX, DY, 2DX, 2DY,3DX,3DX);
 
-    cbezier.relativeCubicTo(0, -size.height, size.width, size.height, size.width, 0);
-    // DRAWING THE QUADRATIC BEZIER CURVE
-    canvas.drawPath(cbezier, brush);
+    // MARGIN
+    final margin=5;
+
+//  CREATING THE RECTANGLE
+    Rect rect= Rect.fromLTWH(size.width*0.1, size.height*0.35, 200, 100);
+
+// ADD BORDER RADIUS TO THE RECTANGLE
+   RRect batteryshape=  RRect.fromRectAndRadius(rect, Radius.circular(20));
+
+// DRAWING THE BATTERY SHAPE RECTANGLE
+   canvas.drawRRect(batteryshape, borderpaint);
+
+
+   // CREATING THE RECTANGLE FOR NOTCH
+    Rect notchrect= Rect.fromLTWH(size.width*0.1+180, size.height*0.42, 50, 50);
+
+    
+    // DRAWING THE ARC FROM NOTCH RECTANGLE
+    canvas.drawArc(notchrect, degreesToRads(-90), degreesToRads(180), true, notchpaint);
+
+
+    // CREATING THE RECTANGLE FOR CHARGE
+    Rect chargerect= Rect.fromLTWH(size.width*0.1+margin, size.height*0.35+margin,chargevalue*190, 90);
+    RRect chagre=  RRect.fromRectAndRadius(chargerect, Radius.circular(20));
+
+// DRAWING THE CHARGE SHAPE RECTANGLE
+    canvas.drawRRect(chagre, chargepaint);
+
+
+
+
+
+
 
 
   }
@@ -79,3 +144,7 @@ class MyCustomPainter extends CustomPainter{
 
 
 
+// CONVERTING THE DEGREE TO RADIAN TO FORM AN ANGLE
+double degreesToRads(num deg) {
+  return (deg * pi) / 180.0;
+}
